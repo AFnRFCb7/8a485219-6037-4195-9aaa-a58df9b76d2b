@@ -40,7 +40,7 @@
                                                                                             } // lib.mapAttrs' ( name : value : { name = "application/${ name }" ; value = value ; } ) mounts ;
                                                                                         name = name ;
                                                                                         post = post ;
-                                                                                        runtime-inputs = { pkgs , ... } @module : builtins.concatLists [ [ pkgs.coreutils ( code module ) ( nodejes module ) ] ] ;
+                                                                                        runtime-inputs = { pkgs , ... } @module : builtins.concatLists [ [ pkgs.coreutils ( code module ) ( nodejs module ) ] ] ;
                                                                                         text =
                                                                                             ''
                                                                                                 mkdir --parents /mounts/work/node_modules
