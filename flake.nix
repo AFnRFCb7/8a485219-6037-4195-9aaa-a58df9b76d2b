@@ -19,39 +19,40 @@
                                                     options =
                                                         {
                                                             lazy-node-application =
-                                                                {
-                                                                    default =
-                                                                        {
-                                                                            code ,
-                                                                            dependencies ,
-                                                                            entry-point ,
-                                                                            mounts ,
-                                                                            name ,
-                                                                            node ,
-                                                                            post ,
-                                                                            variables
-                                                                        } :
-                                                                            config.lazy-shell-application
-                                                                                {
-                                                                                    mounts =
-                                                                                        {
-                                                                                            "work" = { temporary = { type = "temporary" ; } ; } ;
-                                                                                        } // lib.mapAttrs' ( name : value : { name = "application/${ name }" ; value = value ; } ) mounts ;
-                                                                                    name = name ;
-                                                                                    post = post ;
-                                                                                    runtime-inputs = { pkgs , ... } @module : builtins.concatLists [ [ pkgs.coreutils ] ( nodejs module ) ( code module ) ] ;
-                                                                                    text =
-                                                                                        ''
-                                                                                            mkdir --parents /mounts/work/node_modules
-                                                                                            ${ builtins.concatStringsSep "" ( builtins.map ( dependency : ''ln --symbolic ${ dependency } /mounts/work/node_modules'' ) dependencies ) }
-                                                                                            cd /mounts/work
-                                                                                            code
-                                                                                            exec ${node}/bin/node "${ entry_point }" "$@"
-                                                                                        '' ;
-                                                                                    variables = variables ;
-                                                                                } ;
-                                                                    type = lib.types.functionTo lib.types.package ;
-                                                                } ;
+                                                                lib.mkOption
+                                                                    {
+                                                                        default =
+                                                                            {
+                                                                                code ,
+                                                                                dependencies ,
+                                                                                entry-point ,
+                                                                                mounts ,
+                                                                                name ,
+                                                                                node ,
+                                                                                post ,
+                                                                                variables
+                                                                            } :
+                                                                                config.lazy-shell-application
+                                                                                    {
+                                                                                        mounts =
+                                                                                            {
+                                                                                                "work" = { temporary = { type = "temporary" ; } ; } ;
+                                                                                            } // lib.mapAttrs' ( name : value : { name = "application/${ name }" ; value = value ; } ) mounts ;
+                                                                                        name = name ;
+                                                                                        post = post ;
+                                                                                        runtime-inputs = { pkgs , ... } @module : builtins.concatLists [ [ pkgs.coreutils ] ( nodejs module ) ( code module ) ] ;
+                                                                                        text =
+                                                                                            ''
+                                                                                                mkdir --parents /mounts/work/node_modules
+                                                                                                ${ builtins.concatStringsSep "" ( builtins.map ( dependency : ''ln --symbolic ${ dependency } /mounts/work/node_modules'' ) dependencies ) }
+                                                                                                cd /mounts/work
+                                                                                                code
+                                                                                                exec ${node}/bin/node "${ entry_point }" "$@"
+                                                                                            '' ;
+                                                                                        variables = variables ;
+                                                                                    } ;
+                                                                        type = lib.types.functionTo lib.types.package ;
+                                                                    } ;
                                                         } ;
                                                 } ;
                             in
