@@ -55,7 +55,7 @@
                                                                                                                         text =
                                                                                                                             ''
                                                                                                                                 mkdir --parents node_modules
-                                                                                                                                ${ builtins.concatStringsSep "" ( builtins.map ( dependency : ''ln --symbolic ${ dependency } /mounts/work/node_modules'' ) dependencies ) }
+                                                                                                                                ${ builtins.concatStringsSep "" ( builtins.map ( dependency : ''ln --symbolic ${ dependency } /mounts/work/node_modules'' ) ( dependencies module ) ) }
                                                                                                                             '' ;
                                                                                                                     }
                                                                                                             )
