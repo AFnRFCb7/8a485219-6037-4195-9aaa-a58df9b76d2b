@@ -40,12 +40,32 @@
                                                                                             } // lib.mapAttrs' ( name : value : { name = "application/${ name }" ; value = value ; } ) mounts ;
                                                                                         name = name ;
                                                                                         post = post ;
-                                                                                        runtime-inputs = { pkgs , ... } @module : builtins.concatLists [ [ pkgs.coreutils ( code module ) ( nodejs module ) ] ] ;
+                                                                                        runtime-inputs =
+                                                                                            { pkgs , ... } @module :
+                                                                                                builtins.concatLists
+                                                                                                    [
+                                                                                                        [
+                                                                                                            pkgs.coreutils
+                                                                                                            ( code module )
+                                                                                                            (
+                                                                                                                pkgs.writeShellApplication
+                                                                                                                    {
+                                                                                                                        name = "dependencies" ;
+                                                                                                                        runtimeInputs = [ pkgs.coreutils ] ;
+                                                                                                                        text =
+                                                                                                                            ''
+                                                                                                                                mkdir --parents node_modules
+                                                                                                                                ${ builtins.concatStringsSep "" ( builtins.map ( dependency : ''ln --symbolic ${ dependency } /mounts/work/node_modules'' ) dependencies ) }
+                                                                                                                            '' ;
+                                                                                                                    }
+                                                                                                            )
+                                                                                                            ( nodejs module )
+                                                                                                        ]
+                                                                                                    ] ;
                                                                                         text =
                                                                                             ''
-                                                                                                mkdir --parents /mounts/work/node_modules
-                                                                                                ${ builtins.concatStringsSep "" ( builtins.map ( dependency : ''ln --symbolic ${ dependency } /mounts/work/node_modules'' ) dependencies ) }
                                                                                                 cd /mounts/work
+                                                                                                dependencies
                                                                                                 code
                                                                                                 exec ${node}/bin/node "${ entry_point }" "$@"
                                                                                             '' ;
