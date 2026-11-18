@@ -28,7 +28,7 @@
                                                                                 entry-point ,
                                                                                 mounts ,
                                                                                 name ,
-                                                                                node ,
+                                                                                nodejs ,
                                                                                 post ,
                                                                                 variables
                                                                             } :
