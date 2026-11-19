@@ -67,7 +67,7 @@
                                                                                                 cd /mounts/work
                                                                                                 dependencies
                                                                                                 code
-                                                                                                find node_modules -maxdepth 1
+                                                                                                find . -maxdepth 1
                                                                                                 exec node "${ entry-point }"
                                                                                             '' ;
                                                                                         variables = variables ;
