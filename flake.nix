@@ -51,11 +51,11 @@
                                                                                                                 pkgs.writeShellApplication
                                                                                                                     {
                                                                                                                         name = "dependencies" ;
-                                                                                                                        runtimeInputs = [ pkgs.coreutils ] ;
+                                                                                                                        runtimeInputs = [ pkgs.coreutils pkgs.findutils ] ;
                                                                                                                         text =
                                                                                                                             ''
                                                                                                                                 mkdir --parents node_modules
-                                                                                                                                ${ builtins.concatStringsSep "" ( builtins.map ( dependency : ''ln --symbolic ${ dependency } node_modules'' ) ( dependencies module ) ) }
+                                                                                                                                ${ builtins.concatStringsSep "" ( builtins.map ( dependency : ''find ${ dependency } -mindepth 1 --maxdepth 1 -exec ln --symbolic {} node_modules \;'' ) ( dependencies module ) ) }
                                                                                                                             '' ;
                                                                                                                     }
                                                                                                             )
@@ -67,7 +67,7 @@
                                                                                                 cd /mounts/work
                                                                                                 dependencies
                                                                                                 code
-                                                                                                find . -maxdepth 1
+                                                                                                find . -maxdepth 2
                                                                                                 exec node "${ entry-point }"
                                                                                             '' ;
                                                                                         variables = variables ;
