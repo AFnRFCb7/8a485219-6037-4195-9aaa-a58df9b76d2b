@@ -37,7 +37,7 @@
                                                                                         mounts =
                                                                                             {
                                                                                                 "work" = { temporary = { type = "temporary" ; } ; } ;
-                                                                                            } ; # // lib.mapAttrs' ( name : value : { name = "application/${ name }" ; value = value ; } ) mounts ;
+                                                                                            } // lib.mapAttrs' ( name : value : { name = "application/${ name }" ; value = value ; } ) mounts ;
                                                                                         name = name ;
                                                                                         post = post ;
                                                                                         runtime-inputs =
