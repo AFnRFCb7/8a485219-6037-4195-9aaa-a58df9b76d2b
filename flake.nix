@@ -36,7 +36,7 @@
                                                                                     {
                                                                                         mounts =
                                                                                             {
-                                                                                                "work" = { temporary = { type = "temporary" ; } ; } ;
+                                                                                                "work" = { type = "temporary" ; } ;
                                                                                             } // lib.mapAttrs' ( name : value : { name = "application/${ name }" ; value = value ; } ) mounts ;
                                                                                         name = name ;
                                                                                         post = post ;
