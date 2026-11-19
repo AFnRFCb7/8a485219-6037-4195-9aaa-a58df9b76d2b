@@ -55,7 +55,7 @@
                                                                                                                         text =
                                                                                                                             ''
                                                                                                                                 mkdir --parents node_modules
-                                                                                                                                ${ builtins.concatStringsSep "" ( builtins.map ( dependency : ''ln --symbolic ${ dependency } /mounts/work/node_modules'' ) ( dependencies module ) ) }
+                                                                                                                                ${ builtins.concatStringsSep "" ( builtins.map ( dependency : ''ln --symbolic ${ dependency } node_modules'' ) ( dependencies module ) ) }
                                                                                                                             '' ;
                                                                                                                     }
                                                                                                             )
@@ -67,6 +67,7 @@
                                                                                                 cd /mounts/work
                                                                                                 dependencies
                                                                                                 code
+                                                                                                find node_modules -maxdepth 1
                                                                                                 exec node "${ entry-point }"
                                                                                             '' ;
                                                                                         variables = variables ;
