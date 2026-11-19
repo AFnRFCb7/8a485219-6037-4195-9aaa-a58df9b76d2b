@@ -67,7 +67,7 @@
                                                                                             ''
                                                                                                 cd /mounts/work
                                                                                                 dependencies
-                                                                                                find . -maxdepth 2
+                                                                                                find . | sort
                                                                                                 code
                                                                                                 exec node "${ entry-point }"
                                                                                             '' ;
