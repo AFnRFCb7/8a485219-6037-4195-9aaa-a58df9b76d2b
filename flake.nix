@@ -67,7 +67,7 @@
                                                                                                 cd /mounts/work
                                                                                                 dependencies
                                                                                                 code
-                                                                                                exec ${node}/bin/node "${ entry_point }" "$@"
+                                                                                                exec node "${ entry_point }" "$@"
                                                                                             '' ;
                                                                                         variables = variables ;
                                                                                     } ;
