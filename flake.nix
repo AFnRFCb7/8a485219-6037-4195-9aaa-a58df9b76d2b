@@ -55,8 +55,7 @@
                                                                                                                         text =
                                                                                                                             ''
                                                                                                                                 mkdir --parents node_modules
-                                                                                                                                ${ builtins.concatStringsSep "\n" ( builtins.map ( dependency : ''find ${ dependency } -mindepth 1 -maxdepth 1 -exec echo ln --symbolic {} node_modules \;'' ) ( dependencies module ) ) }
-                                                                                                                                ${ builtins.concatStringsSep "\n" ( builtins.map ( dependency : ''find ${ dependency } -mindepth 1 -maxdepth 1 -exec ln --symbolic {} node_modules \;'' ) ( dependencies module ) ) }
+                                                                                                                                 ${ builtins.concatStringsSep "\n" ( builtins.map ( dependency : ''find ${ dependency } -mindepth 1 -maxdepth 1 -exec ln --symbolic {} node_modules \;'' ) ( dependencies module ) ) }
 
                                                                                                                             '' ;
                                                                                                                     }
