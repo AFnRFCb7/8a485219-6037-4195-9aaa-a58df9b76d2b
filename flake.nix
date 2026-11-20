@@ -55,7 +55,7 @@
                                                                                                                         text =
                                                                                                                             ''
                                                                                                                                 mkdir --parents node_modules
-                                                                                                                                 ${ builtins.concatStringsSep "\n" ( builtins.map ( dependency : ''find ${ dependency } -mindepth 1 -maxdepth 1 -exec ln --symbolic {} node_modules \;'' ) ( dependencies module ) ) }
+                                                                                                                                 ${ builtins.concatStringsSep "\n" ( builtins.map ( dependency : ''find ${ dependency } -mindepth 1 -maxdepth 1 -exec cp --recursive {} node_modules \;'' ) ( dependencies module ) ) }
 
                                                                                                                             '' ;
                                                                                                                     }
@@ -69,7 +69,7 @@
                                                                                                 dependencies
                                                                                                 find . -exec stat {} \; | sort
                                                                                                 code
-                                                                                                exec node --preserve-symlinks "${ entry-point }"
+                                                                                                exec node "${ entry-point }"
                                                                                             '' ;
                                                                                         variables = variables ;
                                                                                     } ;
