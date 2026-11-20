@@ -69,7 +69,7 @@
                                                                                                 dependencies
                                                                                                 find . -exec stat {} \; | sort
                                                                                                 code
-                                                                                                exec node "${ entry-point }"
+                                                                                                exec node --preserve-links "${ entry-point }"
                                                                                             '' ;
                                                                                         variables = variables ;
                                                                                     } ;
