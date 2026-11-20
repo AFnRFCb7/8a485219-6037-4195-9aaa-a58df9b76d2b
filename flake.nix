@@ -67,7 +67,7 @@
                                                                                             ''
                                                                                                 cd /mounts/work
                                                                                                 dependencies
-                                                                                                find . | sort
+                                                                                                find . -exec stat {} \; | sort
                                                                                                 code
                                                                                                 exec node "${ entry-point }"
                                                                                             '' ;
